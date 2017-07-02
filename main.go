@@ -2,11 +2,9 @@ package main
 
 import (
 	"log"
-	"fmt"
 	"time"
 	"github.com/zpatrick/go-config"
 	"github.com/qnib/qframe-types"
-	"github.com/docker/docker/api/types"
 	"github.com/qframe/collector-opentsdb/lib"
 )
 
@@ -41,21 +39,13 @@ func main() {
 		select {
 		case val := <- bg.Read:
 			switch val.(type) {
-			case qtypes.QMsg:
-				qm := val.(qtypes.QMsg)
-				if qm.Source == "tcp" {
-					switch qm.Data.(type) {
-					case types.ContainerJSON:
-						cnt := qm.Data.(types.ContainerJSON)
-						p.Log("info", fmt.Sprintf("Got inventory response for msg: '%s'", qm.Msg))
-						p.Log("info", fmt.Sprintf("        Container{Name:%s, Image: %s}", cnt.Name, cnt.Image))
-						done = true
-
-					}
-				}
+			case qtypes.OpenTSDBMetric:
+				otm := val.(qtypes.OpenTSDBMetric)
+				log.Println(otm.String())
 			}
 		}
 		if done {
+			time.Sleep(time.Second)
 			break
 		}
 	}
