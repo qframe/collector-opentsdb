@@ -37,7 +37,7 @@ func New(qChan qtypes.QChan, cfg *config.Config, name string) (Plugin, error) {
 
 func (p *Plugin) Run() {
 	p.Log("notice", fmt.Sprintf("Start collector v%s", p.Version))
-	host := p.CfgStringOr("bind-host", "0.1.0.0")
+	host := p.CfgStringOr("bind-host", "0.0.0.0")
 	port := p.CfgStringOr("bind-port", "8070")
 	router := mux.NewRouter()
 	router.HandleFunc("/api/put", p.putHandler).Methods("POST")
