@@ -1,6 +1,8 @@
 package models
 
-import 	"github.com/qnib/qframe-types"
+import (
+	"github.com/qframe/types/metrics"
+)
 
 type HttpResponse struct {
 	Failed int
@@ -15,11 +17,11 @@ func NewHttpResponse() HttpResponse {
 	}
 }
 type HttpError struct {
-	Datapoint qtypes.OpenTSDBMetric
+	Datapoint qtypes_metrics.OpenTSDBMetric
 	Error string
 }
 
-func NewHttpError(dp qtypes.OpenTSDBMetric, error string) HttpError {
+func NewHttpError(dp qtypes_metrics.OpenTSDBMetric, error string) HttpError {
 	return HttpError{
 		Datapoint: dp,
 		Error: error,
