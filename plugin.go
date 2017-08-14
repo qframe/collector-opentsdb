@@ -37,7 +37,6 @@ func Start(qChan qtypes_qchannel.QChan, cfg *config.Config, name string) (err er
 	}
 	p.Run()
 	return errors.New("Serving of http endpoint finished")
-
 }
 
 func New(qChan qtypes_qchannel.QChan, cfg *config.Config, name string) (Plugin, error) {
